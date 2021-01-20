@@ -25,6 +25,12 @@ public class JunoDirectCheckoutPlugin implements FlutterPlugin, MethodCallHandle
   private MethodChannel channel;
   private Context context;
 
+  JunoDirectCheckoutPlugin() {}
+
+  JunoDirectCheckoutPlugin(Context context) {
+    this.context = context;
+  }
+
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "juno_direct_checkout");
@@ -43,7 +49,7 @@ public class JunoDirectCheckoutPlugin implements FlutterPlugin, MethodCallHandle
   // in the same class.
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "juno_direct_checkout");
-    channel.setMethodCallHandler(new JunoDirectCheckoutPlugin());
+    channel.setMethodCallHandler(new JunoDirectCheckoutPlugin(registrar.context()));
   }
 
   @Override
